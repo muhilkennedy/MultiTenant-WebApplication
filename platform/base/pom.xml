@@ -7,15 +7,10 @@
 		<artifactId>platform</artifactId>
 		<version>platform-v1</version>
 	</parent>
-	<artifactId>tenant</artifactId>
-	<name>tenant</name>
-	<description>Tenant Management Module</description>
-	<version>tenant-v1</version>
+	<artifactId>base</artifactId>
+	<name>base</name>
+	<description>Base Abstract Functionalities</description>
+	<version>base-v1</version>
 	<dependencies>
-		<dependency>
-			<groupId>com.platform</groupId>
-			<artifactId>base</artifactId>
-			<version>base-v1</version>
-		</dependency>
 	</dependencies>
 </project>
