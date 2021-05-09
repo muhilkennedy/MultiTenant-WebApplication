@@ -21,9 +21,6 @@ import com.platform.base.util.ConfigurationUtil;
 public class LoggingAdvice {
 
 	private Logger logger = LoggerFactory.getLogger(LoggingAdvice.class);
-
-	@Autowired
-	private ConfigurationUtil configUtil;
 	
 	@Autowired
 	private BaseService baseService;
@@ -62,6 +59,12 @@ public class LoggingAdvice {
 
 	}
 
+	@Pointcut(value = "within(com.platform.user..*)")
+	public void userPointCut() {
+
+	}
+
+	
 	@Around("@annotation(LogExecutionTime)")
 	public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
 		Instant start = Instant.now();
@@ -71,9 +74,9 @@ public class LoggingAdvice {
 		return proceed;
 	}
 
-	@Around("@annotation(LogExecutionMethod) || tenantPointCut()")
+	@Around("@annotation(LogExecutionMethod) || tenantPointCut() || userPointCut()")
 	public Object logExecutionMethod(ProceedingJoinPoint joinPoint) throws Throwable {
-		if (configUtil.isAopLogging()) {
+		if (ConfigurationUtil.isAopLogging()) {
 			long start = System.currentTimeMillis();
 			String className = joinPoint.getTarget().getClass().getName();
 			String methodName = joinPoint.getSignature().getName();

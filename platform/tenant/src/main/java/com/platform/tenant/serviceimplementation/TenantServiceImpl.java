@@ -3,7 +3,6 @@ package com.platform.tenant.serviceimplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.platform.base.aop.advice.LogExecutionMethod;
 import com.platform.tenant.entity.Tenant;
 import com.platform.tenant.repository.TenantRepository;
 import com.platform.tenant.service.TenantService;
@@ -29,8 +28,9 @@ public class TenantServiceImpl implements TenantService {
 	}
 
 	@Override
-	public void findById(Object rootId) {
-		// TODO
+	public Object findById(Object rootId) {
+		//TODO
+		return null;
 	}
 
 	@Override

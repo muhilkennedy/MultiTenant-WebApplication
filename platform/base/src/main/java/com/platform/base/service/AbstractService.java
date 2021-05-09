@@ -10,6 +10,6 @@ public interface AbstractService {
 
 	public void saveAndFlush(Object obj);
 
-	public void findById(Object rootId);
+	public Object findById(Object rootId);
 
 }

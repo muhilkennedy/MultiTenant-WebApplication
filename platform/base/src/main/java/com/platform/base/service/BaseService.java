@@ -10,4 +10,8 @@ public interface BaseService {
 	void setTenantInfo(Object tenantInfo);
 
 	void clear();
+
+	Object getUserInfo();
+
+	void setUserInfo(Object userInfo);
 }

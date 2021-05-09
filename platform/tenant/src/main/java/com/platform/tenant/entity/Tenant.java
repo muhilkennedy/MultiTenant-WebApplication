@@ -37,9 +37,6 @@ public class Tenant extends AbstractEntity {
 	@Column(name = "TENANTNAME")
 	private String tenantName;
 
-	@Column(name = "ACTIVE")
-	private boolean active;
-
 	@Column(name = "PURGETENANT")
 	private boolean purge;
 
@@ -57,14 +54,6 @@ public class Tenant extends AbstractEntity {
 
 	public void setTenantName(String tenantName) {
 		this.tenantName = tenantName;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	public boolean isPurge() {
@@ -93,7 +82,7 @@ public class Tenant extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Tenant [tenantId=" + tenantId + ", tenantName=" + tenantName + ", active=" + active + "]";
+		return "Tenant [tenantId=" + tenantId + ", tenantName=" + tenantName + ", active=" + this.isActive() + "]";
 	}
 
 }
