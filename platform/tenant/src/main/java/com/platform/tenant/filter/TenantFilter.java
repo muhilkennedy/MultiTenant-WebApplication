@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.platform.base.aop.advice.LogExecutionMethod;
 import com.platform.base.service.BaseService;
 import com.platform.base.util.ConfigurationUtil;
 import com.platform.base.util.Constants;
@@ -29,9 +28,6 @@ import com.platform.tenant.util.TenantUtil;
 public class TenantFilter implements Filter {
 
 	private static Logger logger = LoggerFactory.getLogger(TenantFilter.class);
-
-	@Autowired
-	private ConfigurationUtil configUtil;
 
 	@Autowired
 	private BaseService baseService;
@@ -47,7 +43,7 @@ public class TenantFilter implements Filter {
 		// load tenant info from cache
 		if (StringUtils.isNotEmpty(tenantId)) {
 			tenantInfo = TenantUtil.getTenantInfo(tenantId);
-			if (tenantInfo == null && configUtil.isProdMode()) {
+			if (tenantInfo == null && ConfigurationUtil.isProdMode()) {
 				((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "Tenant Not Found!");
 				return;
 			}
@@ -62,7 +58,7 @@ public class TenantFilter implements Filter {
 		// Allow access for cross site request due to multiple deployments.
 		res.setHeader("Access-Control-Allow-Origin", req.getHeader(Constants.Header_Origin));
 		res.setHeader("Access-Control-Allow-Credentials", "true");
-		if (configUtil.isProdMode()) {
+		if (ConfigurationUtil.isProdMode()) {
 			if (StringUtils.isNotEmpty(origin) && TenantUtil.isAllowedOriginForTenant(tenantInfo, origin)) {
 				baseService.setTenantInfo(tenantInfo);
 				chain.doFilter(request, response);

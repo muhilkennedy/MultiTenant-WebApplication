@@ -29,9 +29,6 @@ public class TenantSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static Logger logger = LoggerFactory.getLogger(TenantSecurityConfiguration.class);
 
 	@Autowired
-	private ConfigurationUtil configUtil;
-
-	@Autowired
 	private TenantFilter tenantFilter;
 
 	/*
@@ -39,7 +36,6 @@ public class TenantSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		logger.info("<<<<<<<<<<<<< App Running in " + configUtil.getDeploymentMode() + " mode >>>>>>>>>>>>>");
 		http.csrf().disable();
 		http.cors().and().authorizeRequests().antMatchers("/**").permitAll().and().headers().frameOptions().disable();
 	}
@@ -48,7 +44,7 @@ public class TenantSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedHeaders(Arrays.asList("*"));
-		configuration.setAllowedOrigins(Arrays.asList(configUtil.getAllowedOrigin()));
+		configuration.setAllowedOrigins(Arrays.asList(ConfigurationUtil.getAllowedOrigin()));
 		configuration.setAllowedMethods(Arrays.asList("*"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
@@ -57,6 +53,7 @@ public class TenantSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public FilterRegistrationBean<TenantFilter> RealmFilterRegistration() {
+		logger.info("Tenant Filter Registered");
 		FilterRegistrationBean<TenantFilter> registration = new FilterRegistrationBean<TenantFilter>();
 		registration.setFilter(tenantFilter);
 		registration.addUrlPatterns("*");

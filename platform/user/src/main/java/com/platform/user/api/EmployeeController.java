@@ -1,4 +1,4 @@
-package com.platform.tenant.api;
+package com.platform.user.api;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,24 +17,26 @@ import com.platform.base.service.BaseService;
 import com.platform.base.util.GenericResponse;
 import com.platform.base.util.Response;
 import com.platform.tenant.entity.Tenant;
-import com.platform.tenant.service.TenantService;
+import com.platform.user.entity.EmployeeInfo;
+import com.platform.user.service.EmployeeService;
 
 /**
  * @author Muhil
  *
  */
 @RestController
-@RequestMapping("tenant")
-public class TenantController {
-	private static Logger logger = LoggerFactory.getLogger(TenantController.class);
+@RequestMapping("employee")
+public class EmployeeController {
+
+	private static Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
-	BaseService baseService;
-
+	private BaseService baseService;
+	
 	@Autowired
-	TenantService tenantSetvice;
-
-	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	private EmployeeService empService;
+	
+	@RequestMapping(value = "/testempping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<Tenant> pingTenant(HttpServletRequest request) {
 		GenericResponse<Tenant> response = new GenericResponse<>();
 		try {

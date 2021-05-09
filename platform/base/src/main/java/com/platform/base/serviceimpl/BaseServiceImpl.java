@@ -14,6 +14,7 @@ import com.platform.base.service.BaseService;
 public class BaseServiceImpl implements BaseService {
 
 	private ThreadLocal<Object> tenantInfo = new ThreadLocal<Object>();
+	private ThreadLocal<Object> userInfo = new ThreadLocal<Object>();
 
 	@Override
 	public Object getTenantInfo() {
@@ -26,7 +27,20 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
+	public Object getUserInfo() {
+		return userInfo;
+	}
+
+	@Override
+	public void setUserInfo(Object userInfo) {
+		this.userInfo.set(userInfo);
+	}
+
+	@Override
 	public void clear() {
 		setTenantInfo(null);
+		setUserInfo(null);
 	}
+	
+	
 }

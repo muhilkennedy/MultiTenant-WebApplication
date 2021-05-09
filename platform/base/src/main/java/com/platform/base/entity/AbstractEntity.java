@@ -10,6 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 /**
  * @author Muhil
@@ -23,7 +24,7 @@ public abstract class AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ROOTID")
+	@Column(name = "ROOTID", updatable = false, nullable = false)
 	private long rootId;
 
 	@Column(name = "TIMEUPDATED")
@@ -31,6 +32,9 @@ public abstract class AbstractEntity implements Serializable {
 
 	@Column(name = "TIMECREATED")
 	private long timeCreated;
+	
+	@Column(name = "ACTIVE", columnDefinition = "boolean default true")
+	private boolean active = true;
 
 	public long getRootId() {
 		return rootId;
@@ -56,11 +60,24 @@ public abstract class AbstractEntity implements Serializable {
 		this.timeCreated = timeCreated;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@PrePersist
-	private void prePersist() {
+	protected void prePersist() {
 		if (timeCreated <= 0L) {
 			this.setTimeCreated(System.currentTimeMillis());
 		}
+		this.setTimeUpdated(System.currentTimeMillis());
+	}
+
+	@PreUpdate
+	protected void preUpdate() {
 		this.setTimeUpdated(System.currentTimeMillis());
 	}
 

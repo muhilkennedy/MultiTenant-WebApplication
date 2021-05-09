@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.platform.base.service.BaseService;
+import com.platform.base.util.ConfigurationUtil;
 
 /**
  * @author muhil kennedy
@@ -44,7 +45,10 @@ public class PlatformApplication {
 		logger.info("Heap Size = " + (Runtime.getRuntime().totalMemory() / 1000000000.0) + " GB");
 		logger.info("Max Memory Size = " + (Runtime.getRuntime().maxMemory() / 1000000000.0) + " GB");
 		logger.info("Total Memory Size = " + (Runtime.getRuntime().freeMemory() / 1000000000.0) + " GB");
-		logger.info("<<<<<<<<<<<<< Started PlatformApplication >>>>>>>>>>>>>");
+		logger.info("<<<<<<<<<<<<< " + ConfigurationUtil.getAppName() + " Started in : " + ConfigurationUtil.getDeploymentMode() + " >>>>>>>>>>>>>");
+		logger.info("<<<<<<<<<<<<< App Running in port : " + ConfigurationUtil.getServerPort() + " >>>>>>>>>>>>>");
+		logger.info("<<<<<<<<<<<<< AOP Logging Enabled : " + ConfigurationUtil.isAopLogging() + " >>>>>>>>>>>>>");
+		logger.info("<<<<<<<<<<<<< DBMigration Enabled : " + ConfigurationUtil.isFlywayEnabled() + " >>>>>>>>>>>>>");
 	}
 
 }

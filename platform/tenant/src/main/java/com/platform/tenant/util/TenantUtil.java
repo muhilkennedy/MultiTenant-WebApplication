@@ -38,4 +38,8 @@ public class TenantUtil {
 		return TenantCacheService.getTenantInfo(tenantId);
 	}
 
+	public static String getTenantIdFromBase(Object tenantObject) {
+		return ((Tenant) tenantObject).getTenantId();
+	}
+
 }
