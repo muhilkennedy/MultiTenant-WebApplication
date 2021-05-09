@@ -5,7 +5,7 @@
     <artifactId>platform</artifactId>
     <version>platform-v1</version>
   </parent>
-  <artifactId>api</artifactId>
+  <artifactId>apias</artifactId>
   <name>api</name>
   <description>Api implementation</description>
   <version>api-v1</version>
